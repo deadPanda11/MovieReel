@@ -58,33 +58,35 @@ const MovieDetails = () => {
   };
 
   return (
-    <div className="px-32 py-5 flex">
+    <div className="px-4 md:px-8 lg:px-32 py-5 flex flex-col lg:flex-row">
       <Backdrop imageUrl={movie.backdrop_path} blur={false} overlay={true} />
-      <div className="w-1/3">
+      <div className="w-full md:max-w-30 lg:w-1/3 mb-8 lg:mb-0">
         <img
           src={movie.poster_path}
-          className="h-[600px] mx-auto my-4"
+          className="w-full h-auto mx-auto"
           alt={movie.title}
         />
       </div>
-      <div className="w-2/3 px-8 text-white">
-        <h1 className="font-bold text-5xl mt-2 mb-4">{movie.title}</h1>
-        <div className="flex items-center text-lg mb-4">
+      <div className="w-full lg:w-2/3 px-4 lg:px-8 text-white">
+        <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl mt-2 mb-4">
+          {movie.title}
+        </h1>
+        <div className="flex flex-wrap items-center text-sm md:text-lg mb-4">
           <span>{new Date(movie.release_date).getFullYear()}</span>
           <span className="mx-2">|</span>
           <span>{movie.duration} mins</span>
           <span className="mx-2">|</span>
           <span>{movie.ageLimit}+</span>
         </div>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap mb-4">
           {movie.genres.map((genre) => (
             <Tag key={genre} genre={genre} className="mr-2 mb-2" />
           ))}
         </div>
-        <h2 className="text-gray-300 text-md mt-4 mb-2">Overview</h2>
+        <h2 className="text-gray-300 text-sm md:text-md mt-4 mb-2">Overview</h2>
         <div className="border-b border-gray-300"></div>
-        <p className="text-xl mt-4 mb-4">{movie.overview}</p>
-        <div className="flex mt-16">
+        <p className="text-base md:text-xl mt-4 mb-4">{movie.overview}</p>
+        <div className="flex flex-col md:flex-row mt-8 gap-4">
           <Button
             label={
               isWatchLater ? "Remove from Watch Later" : "Add to Watch Later"
