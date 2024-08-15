@@ -5,7 +5,15 @@ import { useWatchLater } from "../Context/WatchLaterContext";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const MovieCard = (props) => {
+const MovieCard = ({
+  id,
+  release_date,
+  title,
+  poster,
+  genres,
+  pageType,
+  ...otherProps
+}) => {
   const { watchLaterMovies, addToWatchLater, removeFromWatchLater } =
     useWatchLater();
 
@@ -15,20 +23,25 @@ const MovieCard = (props) => {
     return null;
   }
 
-  const isWatchLater = watchLaterMovies.some((movie) => movie.id === props.id);
+  const isWatchLater = watchLaterMovies.some((movie) => movie.id === id);
 
-  const releaseYear = props.release_date
-    ? props.release_date.split("-")[0]
-    : "";
+  const releaseYear = release_date ? release_date.split("-")[0] : "";
 
   const handleWatchLaterClick = (e) => {
     e.stopPropagation();
     if (isWatchLater) {
-      removeFromWatchLater(props.id);
-      toast.info(`${props.title} removed from Watch Later`);
+      removeFromWatchLater(id);
+      toast.info(`${title} removed from Watch Later`);
     } else {
-      addToWatchLater(props);
-      toast.success(`${props.title} added to Watch Later`);
+      addToWatchLater({
+        id,
+        title,
+        release_date,
+        poster,
+        genres,
+        ...otherProps,
+      });
+      toast.success(`${title} added to Watch Later`);
     }
   };
 
@@ -38,42 +51,38 @@ const MovieCard = (props) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to={`/movies/${props.id}`}>
+      <Link to={`/movies/${id}`}>
         <div className="relative">
           <img
-            src={props.poster}
+            src={poster}
             className="w-full h-80 object-cover rounded-t-lg"
-            alt={props.title}
+            alt={title}
           />
-
           <div
             className={`absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black via-black to-transparent opacity-0 transition-opacity duration-500 ${
               isHovered ? "opacity-80" : ""
             }`}
           ></div>
-
           <div
             className={`absolute bottom-0 left-0 w-full p-4 transition-opacity duration-500 ${
               isHovered ? "opacity-100" : "opacity-0"
             }`}
           >
             <div className="flex flex-wrap text-xs">
-              {props.genres.map((genre) => (
+              {genres.map((genre) => (
                 <Tag key={genre} genre={genre} className="mr-2 mb-2" />
               ))}
             </div>
           </div>
         </div>
-
         <div className="p-4">
           <p className="text-sm">
-            <span className="font-bold">{props.title}</span>
+            <span className="font-bold">{title}</span>
             <span className="text-gray-400"> ({releaseYear})</span>
           </p>
         </div>
       </Link>
-
-      {isHovered && props.pageType !== "watched" && (
+      {isHovered && pageType !== "watched" && (
         <div className="absolute top-3 right-3 flex space-x-2">
           <div className="relative group">
             <button

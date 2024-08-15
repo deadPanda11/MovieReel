@@ -8,7 +8,14 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const MovieTile = (props) => {
+const MovieTile = ({
+  release_date,
+  title,
+  id,
+  poster,
+  genres,
+  ...otherProps
+}) => {
   const { watchLaterMovies, removeFromWatchLater } = useWatchLater();
   const { addToWatched } = useWatched();
 
@@ -18,9 +25,7 @@ const MovieTile = (props) => {
     return null;
   }
 
-  const releaseYear = props.release_date
-    ? props.release_date.split("-")[0]
-    : "";
+  const releaseYear = release_date ? release_date.split("-")[0] : "";
 
   const toggleDropdown = (e) => {
     e.stopPropagation();
@@ -29,32 +34,28 @@ const MovieTile = (props) => {
 
   const handleMarkAsWatched = (e) => {
     e.stopPropagation();
-    addToWatched(props);
-    toast.success(`You marked ${props.title} as watched`);
+    addToWatched({ release_date, title, id, poster, genres, ...otherProps });
+    toast.success(`You marked ${title} as watched`);
     setIsDropdownOpen(false);
   };
 
   const handleRemoveFromWatchLater = (e) => {
     e.stopPropagation();
-    removeFromWatchLater(props.id);
-    toast.info(`${props.title} removed from Watch Later`);
+    removeFromWatchLater(id);
+    toast.info(`${title} removed from Watch Later`);
     setIsDropdownOpen(false);
   };
 
   return (
     <div className="relative flex bg-gray-900 text-white rounded-lg shadow-lg overflow-hidden">
-      <Link to={`/movies/${props.id}`}>
-        <img
-          src={props.poster}
-          alt={props.title}
-          className="w-32 h-auto object-cover"
-        />
+      <Link to={`/movies/${id}`}>
+        <img src={poster} alt={title} className="w-32 h-auto object-cover" />
       </Link>
       <div className="flex-1 p-4">
-        <p className="text-lg font-bold mb">{props.title}</p>
+        <p className="text-lg font-bold mb">{title}</p>
         <p className="text-gray-400 mb-2">{releaseYear}</p>
         <div className="flex flex-wrap text-xs mt-4">
-          {props.genres.map((genre) => (
+          {genres.map((genre) => (
             <Tag key={genre} genre={genre} className="mr-2 mb-2" />
           ))}
         </div>

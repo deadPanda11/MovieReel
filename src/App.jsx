@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./components/Helpers/Root";
 import MovieDetails from "./components/Movies/MovieDetails";
 import ErrorPage from "./components/Helpers/Error";
-import Home from "./components/Home";
+import Home from "./components//Home/Home";
 import WatchLater from "./components/Watchlist/WatchLater";
 import Watched from "./components/Watchlist/Watched";
 import { WatchLaterProvider } from "./components/Context/WatchLaterContext";
