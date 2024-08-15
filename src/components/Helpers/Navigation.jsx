@@ -1,6 +1,5 @@
 import { useState } from "react";
 import NavItem from "../UI/NavItem";
-import menuIcon from "/assets/menu_icon.svg";
 
 const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,7 +17,20 @@ const Navigation = () => {
             onClick={toggleMenu}
             className="text-white focus:outline-none"
           >
-            {menuIcon}
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12H16m-6 6h6"
+              />
+            </svg>
           </button>
         </div>
         <ul
