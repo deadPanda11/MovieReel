@@ -39,7 +39,7 @@ const Navigation = () => {
           } md:flex md:space-x-8 absolute md:relative top-full left-0 right-0 md:top-0 bg-zinc-950 md:bg-transparent md:flex-row flex-col md:p-0 p-4 z-10`}
         >
           <NavItem item="Home" link="/" />
-          <NavItem item="Movie" link="/movies" />
+          <NavItem item="Movies" link="/movies" />
           <NavItem item="Watch Later" link="/watchLater" />
           <NavItem item="Watched" link="/watched" />
         </ul>
