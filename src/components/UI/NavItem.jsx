@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
 
-const NavItem = ({ item, link }) => {
+const NavItem = ({ item, link, onClick }) => {
   return (
     <li className="md:py-0 py-2">
       <NavLink
@@ -11,6 +11,7 @@ const NavItem = ({ item, link }) => {
             isActive ? "text-teal-400" : "hover:text-teal-300"
           }`
         }
+        onClick={onClick}
       >
         {({ isActive }) => (
           <>
